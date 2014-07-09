@@ -12,10 +12,15 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
                             
     var window: UIWindow?
-
+    var emotionsDataStore: EmotionsDataStore?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: NSDictionary?) -> Bool {
         // Override point for customization after application launch.
+
+        emotionsDataStore = EmotionsDataStore()
+        let rootViewController = self.window?.rootViewController as FirstViewController
+        rootViewController.dataStore = emotionsDataStore
+
         return true
     }
 
@@ -27,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        emotionsDataStore?.saveToDisk()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
